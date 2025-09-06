@@ -5,8 +5,6 @@ export async function POST(req: Request) {
   await connectDB();
 
   const { quizName, credentials } = await req.json();
-  console.log("Received quizName:", quizName);
-  console.log("Received credentials:", credentials);
 
   if (!quizName || !credentials) {
     return new Response(JSON.stringify({ message: "Quiz name and credentials required" }), { status: 400 });
@@ -14,6 +12,8 @@ export async function POST(req: Request) {
 
   try {
     const existingQuiz = await QuizAccess.findOne({ quizName });
+    console.log(existingQuiz);
+    
     if (existingQuiz) {
       return new Response(JSON.stringify({ message: "Quiz already exists" }), { status: 400 });
     }

@@ -3,7 +3,6 @@ import mongoose, { Schema, Document } from "mongoose";
 export interface IQuiz extends Document {
   quizName: string;
   credentials: { name: string; password: string }[];
-  questions: { question: string; options: string[]; answer: string }[];
 }
 
 // Sub-schema for credentials
@@ -23,7 +22,7 @@ const QuizSchema = new Schema<IQuiz>(
     quizName: { type: String, required: true },
     credentials: { type: [CredentialSchema], required: true },
   },
-  { timestamps: true }
+  { timestamps: false }
 );
 
 export default mongoose.models.Quiz ||
